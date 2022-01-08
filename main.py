@@ -7,6 +7,7 @@ import time
 
 def start():
     screen = Screen()
+    screen.clear()
     screen.setup(width=600, height=600)
     screen.bgcolor("black")
     screen.title("Snake Game")
@@ -25,6 +26,14 @@ def start():
     game_is_on = True
     new_game = True
 
+    def game_restart():
+        restart = screen.textinput(
+            title="", prompt="Start a new game? (y/n)")
+        if restart == "y":
+            start()
+        else:
+            screen.bye()
+
     while game_is_on:
         screen.update()
         time.sleep(0.1)
@@ -40,12 +49,14 @@ def start():
         if snake.head.xcor() > 298 or snake.head.xcor() < -298 or snake.head.ycor() > 298 or snake.head.ycor() < -298:
             game_is_on = False
             scoreboard.game_over()
+            game_restart()
 
         # Detect colision with tail
         for segment in snake.segments[1:]:
             if snake.head.distance(segment) < 10:
                 game_is_on = False
                 scoreboard.game_over()
+                game_restart()
 
         # for segment in snake.segments:
         #     if segment == snake.head:
