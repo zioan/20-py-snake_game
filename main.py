@@ -48,6 +48,7 @@ def start():
         # Detect colision with wall
         if snake.head.xcor() > 298 or snake.head.xcor() < -298 or snake.head.ycor() > 298 or snake.head.ycor() < -298:
             game_is_on = False
+            scoreboard.check_high_score()
             scoreboard.game_over()
             game_restart()
 
@@ -55,6 +56,7 @@ def start():
         for segment in snake.segments[1:]:
             if snake.head.distance(segment) < 10:
                 game_is_on = False
+                scoreboard.check_high_score()
                 scoreboard.game_over()
                 game_restart()
 
